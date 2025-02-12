@@ -53,7 +53,7 @@ The **PID algorithm** helps the robot adjust motor speeds based on sensor input.
 ### **Line Following Robot Code with PID & Sensor Calibration**
 
 ```cpp
-// **Motor Driver Pins (L298N)**
+// Motor Driver Pins (L298N)
 #define ENA 5   // Left motor speed (PWM)
 #define ENB 10  // Right motor speed (PWM)
 #define IN1 6   // Left motor forward
@@ -61,14 +61,14 @@ The **PID algorithm** helps the robot adjust motor speeds based on sensor input.
 #define IN3 8   // Right motor forward
 #define IN4 9   // Right motor backward
 
-// **IR Sensor Pins**
+// IR Sensor Pins
 #define S1 A0  
 #define S2 A1  
 #define S3 A2  
 #define S4 A3  
 #define S5 A4  
 
-// **PID Constants (Adjust during testing)**
+// PID Constants (Adjust during testing)
 float Kp = 25;  // Proportional Gain
 float Ki = 0;   // Integral Gain (often 0 for LFR)
 float Kd = 12;  // Derivative Gain
@@ -79,7 +79,7 @@ int position = 0;
 float lastError = 0, I = 0;
 
 void setup() {
-  // **Motor Pins Setup**
+  // Motor Pins Setup
   pinMode(ENA, OUTPUT);
   pinMode(ENB, OUTPUT);
   pinMode(IN1, OUTPUT);
@@ -87,7 +87,7 @@ void setup() {
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
 
-  // **Sensor Pins Setup**
+  // Sensor Pins Setup
   pinMode(S1, INPUT);
   pinMode(S2, INPUT);
   pinMode(S3, INPUT);
@@ -96,7 +96,7 @@ void setup() {
   
   Serial.begin(9600);
 
-  // **Calibrate Sensors at Startup**
+  // Calibrate Sensors at Startup
   calibrateSensors();
 }
 
@@ -109,17 +109,17 @@ void loop() {
     analogRead(S5)
   };
 
-  // **Convert Analog to Digital using Thresholds**
+  // Convert Analog to Digital using Thresholds
   for (int i = 0; i < 5; i++) {
     sensorValues[i] = (sensorValues[i] > threshold[i]) ? 1 : 0;
   }
 
-  // **Calculate Position using Weighted Sum**
+  // Calculate Position using Weighted Sum
   position = (sensorValues[0] * -2) + (sensorValues[1] * -1) +
              (sensorValues[2] * 0) + (sensorValues[3] * 1) +
              (sensorValues[4] * 2);
 
-  // **PID Calculation**
+  // PID Calculation
   float P = position;
   I += position;
   float D = position - lastError;
@@ -127,7 +127,7 @@ void loop() {
 
   lastError = position;
 
-  // **Adjust Motor Speeds**
+  // Adjust Motor Speeds
   int leftSpeed = baseSpeed + PIDvalue;
   int rightSpeed = baseSpeed - PIDvalue;
 
@@ -137,7 +137,7 @@ void loop() {
   moveRobot(leftSpeed, rightSpeed);
 }
 
-// **Move Robot Based on PID Output**
+// Move Robot Based on PID Output
 void moveRobot(int leftSpeed, int rightSpeed) {
   analogWrite(ENA, leftSpeed);
   analogWrite(ENB, rightSpeed);
@@ -148,7 +148,7 @@ void moveRobot(int leftSpeed, int rightSpeed) {
   digitalWrite(IN4, rightSpeed <= 0);
 }
 
-// **Sensor Calibration Function**
+// Sensor Calibration Function
 void calibrateSensors() {
   Serial.println("Calibrating Sensors...");
   int minVals[5] = {1023, 1023, 1023, 1023, 1023};
