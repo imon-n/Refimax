@@ -1,4 +1,4 @@
-**🚀Complete Guide: Line Following Robot using PID Control**
+### **🚀 Complete Guide: Line Following Robot using PID Control**
 
 A **Line Following Robot (LFR)** is an autonomous robot that follows a predefined path (usually a black line on a white surface). This guide will cover **everything** from **hardware setup** to **full coding and calibration**.
 
@@ -200,6 +200,3 @@ void calibrateSensors() {
 ✅ **Sensors calibrated for accurate readings**\
 ✅ **PID algorithm tuned for smooth motion**\
 ✅ **Line following test successful**
-
-If your LFR is **not working as expected**, share your **sensor readings, PID behavior, and track design**, and I’ll help you troubleshoot further!
-
